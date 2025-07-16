@@ -6,9 +6,18 @@
 
 import yaml, argparse
 import torch
+import random
+import numpy as np
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM, Trainer, TrainingArguments
 from utils import preprocess, model_type_for
+
+# Set random seeds for reproducibility
+random.seed(42)
+np.random.seed(42)
+torch.manual_seed(42)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(42)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", required=True)
